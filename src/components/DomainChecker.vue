@@ -1,19 +1,14 @@
 <template>
   <div class="domainChecker">
-    <div class="head">
-      <span>
-        {{ hostname }}
-      </span>
-    </div>
     <div class="content">
-      <h3>Domain:</h3>
-      <input v-model="domain" type="text" class="input shadow" />
-
-      <table class="shadow">
-        <thead>
-          <th>Domain</th>
-          <th>Record</th>
-        </thead>
+      <input
+        v-model="domain"
+        type="text"
+        class="domain"
+        placeholder="Enter your domain here"
+      />
+      <Registrar :domain="hostnameRoot" />
+      <table class="table">
         <tr>
           <td>{{ hostname }}</td>
           <td>
@@ -35,7 +30,7 @@
             </ul>
           </td>
         </tr>
-        <tr>
+        <tr class="hr">
           <td>{{ hostnameRoot }}</td>
           <td>
             <ul>
@@ -56,7 +51,7 @@
             </ul>
           </td>
         </tr>
-        <tr v-if="caa">
+        <tr v-if="caa" class="hr">
           <td>CAA</td>
           <td>
             <span class="red"
@@ -71,14 +66,20 @@
 </template>
 
 <script>
+import Registrar from "../components/Registrar.vue";
+
 export default {
   name: "DomainChecker",
+  components: {
+    Registrar,
+  },
   data() {
     return {
-      domain: "https://www.duda.life",
+      domain: "",
       records: {},
       recordsRoot: {},
       caa: {},
+      ns: {},
     };
   },
   created() {
@@ -95,7 +96,7 @@ export default {
         const url = new URL(this.domain);
         return url.hostname;
       } else {
-        return "Invalid domain";
+        return this.domain;
       }
     },
     hostnameRoot() {
@@ -142,48 +143,47 @@ export default {
           this.caa = r.Answer;
         });
     },
-  },
+  }, 
 };
 </script>
 
 <style scoped lang="scss">
 .red {
-  color: #f25340;
+  color: #a44;
 }
-
 .green {
-  color: #7ca783;
+  color: #4a4;
 }
 
-.head {
-  background-color: orange;
-  padding: 20px;
-  color: #fff;
-  text-transform: uppercase;
-  font-weight: bold;
+.table {
+  width: 100%;
+  margin: 32px 0;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 8px, rgba(0, 0, 0, 0.05) 0px 0.5px 1px;
+  thead {
+  }
+  td,
+  th {
+    padding: 16px;
+  }
+  tr {
+    &.hr {
+      border-top: 1px solid #00000013;
+    }
+  }
 }
 
-.shadow {
-  box-shadow: 0 2px 4px 1px #0001;
-}
-
-input {
-  border: none;
-  padding: 10px 15px 10px 40px;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  background-image: linear-gradient(#fffc, #fffc),
-    url("https://img.freepik.com/free-icon/world-wide-web_318-9868.jpg?size=338&ext=jpg");
-  background-size: 20px;
+input.domain {
+  border-radius: 8px;
+  border: 1px solid grey;
+  padding: 8px 16px;
+  margin: 16px 0;
+  min-width: 256px;
+  background-image: url("../assets/002-sphere.svg");
+  background-size: 24px auto;
   background-repeat: no-repeat;
-  background-position-x: 10px;
-  background-position-y: center;
-}
-
-table {
-  background: white;
-  padding: 10px 15px 10px 40px;
-  border-radius: 10px;
-  margin-bottom: 20px;
+  background-position: 96% center;
+  font-size: 16px;
 }
 </style>
