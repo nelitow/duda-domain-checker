@@ -1,5 +1,5 @@
 <template>
-  <div class="registrar">
+  <div class="registrar card">
     <div class="content">
       Your domain is managed at:
       <a target="blank" :href="`https://${registrar}`">{{ registrar }}</a>
@@ -58,4 +58,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+a {
+    color: #4a4a4a;
+}
 </style>

@@ -8,7 +8,8 @@
         placeholder="Enter your domain here"
       />
       <Registrar :domain="hostnameRoot" />
-      <table class="table">
+      <h3>Records</h3>
+      <table class="table card">
         <tr>
           <td>{{ hostname }}</td>
           <td>
@@ -75,7 +76,7 @@ export default {
   },
   data() {
     return {
-      domain: "",
+      domain: "www.duda.life",
       records: {},
       recordsRoot: {},
       caa: {},
@@ -143,7 +144,7 @@ export default {
           this.caa = r.Answer;
         });
     },
-  }, 
+  },
 };
 </script>
 
@@ -156,11 +157,7 @@ export default {
 }
 
 .table {
-  width: 100%;
-  margin: 32px 0;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 8px, rgba(0, 0, 0, 0.05) 0px 0.5px 1px;
+  border-collapse: collapse;
   thead {
   }
   td,
@@ -178,12 +175,15 @@ input.domain {
   border-radius: 8px;
   border: 1px solid grey;
   padding: 8px 16px;
-  margin: 16px 0;
   min-width: 256px;
   background-image: url("../assets/002-sphere.svg");
   background-size: 24px auto;
   background-repeat: no-repeat;
   background-position: 96% center;
   font-size: 16px;
+  margin: 10px 0;
+  color: #4a4a4a;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 8px, rgba(0, 0, 0, 0.05) 0px 0.5px 1px;
 }
 </style>
