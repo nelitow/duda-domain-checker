@@ -1,15 +1,6 @@
 <template>
   <div class="container">
     <DomainChecker />
-    <h3>Other information</h3>
-    <div class="card">
-      You can find full instructions
-      <a
-        href="https://support.duda.co/hc/en-us/articles/360042435774-Go-Live-Publish-and-Set-Up-Your-Domain"
-      >
-        here.
-      </a>
-    </div>
   </div>
 </template>
 
@@ -24,40 +15,37 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
+.container {
+  display: grid;
+  min-height: calc(100vh - 32px);
+  grid-template-rows: 32px 64px 32px auto 32px minmax(calc(50vh + 32px), max-content);
+  grid-gap: 16px;
+  margin: 16px auto;
+  max-width: 1200px;
+  padding: 0 16px;
+  input {
+    border: 1px solid #ccc;
+  }
+}
+.card {
+  margin: 0;
+  padding: 16px;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 8px, rgba(0, 0, 0, 0.05) 0px 0.5px 1px;
+  border-radius: 8px;
+  display: grid;
+  place-content: center left;
+}
+h3 {
+  display: grid;
+  margin: 0;
+  place-content: end left;
+}
 body {
+  margin: 0;
   font-family: "Montserrat", sans-serif;
   background: #ebeae7;
   color: #4a4a4a;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  .card {
-    padding: 16px;
-    width: 100%;
-    margin: 0 0;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 8px,
-      rgba(0, 0, 0, 0.05) 0px 0.5px 1px;
-  }
-  button {
-    border-radius: 1234px;
-    border: none;
-    padding: 6px 18px;
-    color: #fff;
-    background-color: #f66035;
-    font-size: 12px;
-    margin: 0 6px;
-    transition: all 0.2s ease;
-  }
-  h3 {
-    font-size: 14px;
-    font-weight: 600;
-    text-transform: uppercase;
-    margin: 10px 0;
-  }
 }
 </style>

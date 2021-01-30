@@ -1,9 +1,9 @@
 <template>
-  <div class="registrar card">
-    <div class="content">
+  <div class="card">
+    <span>
       Your domain is managed at:
       <a target="blank" :href="`https://${registrar}`">{{ registrar }}</a>
-    </div>
+    </span>
   </div>
 </template>
 
@@ -27,8 +27,7 @@ export default {
       if (registrarUrl.includes("cloudflare")) return "cloudflare.com";
       if (registrarUrl.includes("registrar-servers.com"))
         return "namecheap.com";
-      if (registrarUrl.includes("domaincontrol.com"))
-        return "godaddy.com";
+      if (registrarUrl.includes("domaincontrol.com")) return "godaddy.com";
 
       return registrarUrl;
     },
@@ -57,7 +56,4 @@ export default {
 </script>
 
 <style scoped lang="scss">
-a {
-    color: #4a4a4a;
-}
 </style>

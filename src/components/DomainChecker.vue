@@ -1,77 +1,58 @@
 <template>
-  <div class="domainChecker">
-    <div class="content">
-      <input
-        v-model="domain"
-        type="text"
-        class="domain"
-        placeholder="Enter your domain here"
-      />
-      <Registrar :domain="hostnameRoot" />
-      <h3>Records</h3>
-      <table class="table card">
-        <tr>
-          <td>{{ hostname }}</td>
-          <td>
-            <ul>
-              <li v-for="(record, index) in records" :key="index">
-                <span
-                  class="green"
-                  v-if="
-                    [
-                      '35.172.94.1',
-                      '100.24.208.97',
-                      's.multiscreensite.com.',
-                    ].includes(record.data)
-                  "
-                  >{{ record.data }}</span
-                >
-                <span v-else class="red">
-                  {{ record.data }} This record does not point to Duda
-                </span>
-              </li>
-            </ul>
-          </td>
-        </tr>
-        <tr class="hr">
-          <td>{{ hostnameRoot }}</td>
-          <td>
-            <ul>
-              <li v-for="(record, index) in recordsRoot" :key="index">
-                <span
-                  class="green"
-                  v-if="
-                    [
-                      '35.172.94.1',
-                      '100.24.208.97',
-                      's.multiscreensite.com.',
-                    ].includes(record.data)
-                  "
-                >
-                  {{ record.data }}
-                </span>
-                <span v-else class="red">
-                  {{ record.data }} This record does not point to Duda
-                </span>
-              </li>
-            </ul>
-          </td>
-        </tr>
-        <tr v-if="caa" class="hr">
-          <td>CAA</td>
-          <td>
-            <span class="red"
-              >CAA Record detected! Please remove to generate SSL
-              certificate.</span
-            >
-          </td>
-        </tr>
-      </table>
-    <h3>Other tools</h3>
-
-      <External :domain="hostnameRoot" />
+  <input
+    v-model="domain"
+    type="text"
+    class="domain card"
+    placeholder="Enter your domain here"
+  />
+  <Registrar :domain="hostnameRoot" />
+  <h3>Records</h3>
+  <div class="card records">
+    <div>
+      <b>{{ hostname }}</b>
+      <div v-for="(record, index) in records" :key="index">
+        <span
+          class="green"
+          v-if="
+            ['35.172.94.1', '100.24.208.97', 's.multiscreensite.com.'].includes(
+              record.data
+            )
+          "
+        >
+          {{ record.data }}<br>
+        </span>
+        <span v-else class="red">
+          {{ record.data }} This record does not point to Duda
+        </span>
+      </div>
+    </div>
+    <div>
+      <b>{{ hostnameRoot }}</b>
+      <div v-for="(record, index) in recordsRoot" :key="index">
+        <span
+          class="green"
+          v-if="
+            ['35.172.94.1', '100.24.208.97', 's.multiscreensite.com.'].includes(
+              record.data
+            )
+          "
+        >
+          {{ record.data }}<br>
+        </span>
+        <span v-else class="red">
+          {{ record.data }} This record does not point to Duda
+        </span>
+      </div>
+    </div>
+    <div v-if="caa" class="hr">
+      <span class="red">
+        CAA Record detected! Please remove to generate SSL certificate.
+      </span>
     </div>
   </div>
+  <h3>Other tools</h3>
+
+  <External :domain="hostnameRoot" />
 </template>
 
 <script>
@@ -161,41 +142,13 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.red {
-  color: #a44;
-}
-.green {
-  color: #4a4;
-}
-
-.table {
-  border-collapse: collapse;
-  thead {
+.records {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 16px;
+  > div {
+    border-left: 1px solid #ebeae7;
+    padding-left: 8px;
   }
-  td,
-  th {
-    padding: 16px;
-  }
-  tr {
-    &.hr {
-      border-top: 1px solid #00000013;
-    }
-  }
-}
-
-input.domain {
-  border-radius: 8px;
-  border: 1px solid grey;
-  padding: 8px 16px;
-  min-width: 256px;
-  background-image: url("../assets/002-sphere.svg");
-  background-size: 24px auto;
-  background-repeat: no-repeat;
-  background-position: 96% center;
-  font-size: 16px;
-  margin: 10px 0;
-  color: #4a4a4a;
-  background-color: #fff;
-  box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 8px, rgba(0, 0, 0, 0.05) 0px 0.5px 1px;
 }
 </style>
