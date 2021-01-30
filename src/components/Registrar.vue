@@ -49,7 +49,6 @@ export default {
       })
         .then((r) => r.json())
         .then((r) => {
-          console.log(r);
           if (r.Answer) this.ns = r.Answer;
         });
     },

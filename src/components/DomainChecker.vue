@@ -26,7 +26,9 @@
                   "
                   >{{ record.data }}</span
                 >
-                <span v-else class="red">{{ record.data }}</span>
+                <span v-else class="red">
+                  {{ record.data }} This record does not point to Duda
+                </span>
               </li>
             </ul>
           </td>
@@ -45,9 +47,12 @@
                       's.multiscreensite.com.',
                     ].includes(record.data)
                   "
-                  >{{ record.data }}</span
                 >
-                <span v-else class="red">{{ record.data }}</span>
+                  {{ record.data }}
+                </span>
+                <span v-else class="red">
+                  {{ record.data }} This record does not point to Duda
+                </span>
               </li>
             </ul>
           </td>
@@ -62,21 +67,26 @@
           </td>
         </tr>
       </table>
+    <h3>Other tools</h3>
+
+      <External :domain="hostnameRoot" />
     </div>
   </div>
 </template>
 
 <script>
 import Registrar from "../components/Registrar.vue";
+import External from "../components/External.vue";
 
 export default {
   name: "DomainChecker",
   components: {
     Registrar,
+    External,
   },
   data() {
     return {
-      domain: "www.duda.life",
+      domain: "",
       records: {},
       recordsRoot: {},
       caa: {},
@@ -84,6 +94,8 @@ export default {
     };
   },
   created() {
+    let urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has("url")) this.domain = urlParams.get("url");
     this.fetchDomain();
   },
   watch: {

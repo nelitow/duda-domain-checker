@@ -1,9 +1,7 @@
 <template>
   <div class="container">
     <DomainChecker />
-    <h3>
-      Other information
-    </h3>
+    <h3>Other information</h3>
     <div class="card">
       You can find full instructions
       <a
@@ -26,7 +24,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 body {
   font-family: "Montserrat", sans-serif;
   background: #ebeae7;
