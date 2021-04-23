@@ -22,7 +22,7 @@ export default {
   grid-template-rows: 32px 64px 32px auto 32px minmax(calc(50vh + 32px), max-content);
   grid-gap: 16px;
   margin: 16px auto;
-  max-width: 1200px;
+  max-width: 1366px;
   padding: 0 16px;
   input {
     border: 1px solid #ccc;

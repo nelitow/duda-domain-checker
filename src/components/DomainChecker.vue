@@ -1,10 +1,14 @@
 <template>
-  <input
-    v-model="domain"
-    type="text"
-    class="domain card"
-    placeholder="Enter your domain here"
-  />
+  <div class="form">
+    <input
+      v-model="domain"
+      type="text"
+      class="domain card"
+      placeholder="Enter your domain here"
+      @keypress.enter="reloadFrames"
+    />
+    <button @click="reloadFrames">Check</button>
+  </div>
   <Registrar :domain="hostnameRoot" />
   <h3>Records</h3>
   <div class="card records">
@@ -19,10 +23,10 @@
             )
           "
         >
-          {{ record.data }}<br>
+          ✅ {{ record.data }}<br />
         </span>
         <span v-else class="red">
-          {{ record.data }} This record does not point to Duda
+          ⚠️ {{ record.data }} This record does not point to Duda
         </span>
       </div>
     </div>
@@ -37,16 +41,16 @@
             )
           "
         >
-          {{ record.data }}<br>
+          ✅ {{ record.data }}<br />
         </span>
         <span v-else class="red">
-          {{ record.data }} This record does not point to Duda
+          ⚠️ {{ record.data }} This record does not point to Duda
         </span>
       </div>
     </div>
     <div v-if="caa" class="hr">
       <span class="red">
-        CAA Record detected! Please remove to generate SSL certificate.
+        ⚠️ CAA Record detected! Please remove to generate SSL certificate.
       </span>
     </div>
   </div>
@@ -98,6 +102,14 @@ export default {
     },
   },
   methods: {
+    reloadFrames() {
+      var url = new URL(window.location);
+      url.searchParams.has("url")
+        ? url.searchParams.set("url", this.domain)
+        : url.searchParams.append("url", this.domain);
+      console.log(url);
+      window.location.href = url;
+    },
     fetchDomain() {
       const full = `https://cloudflare-dns.com/dns-query?name=${this.hostname}&type=A`;
 
@@ -149,6 +161,18 @@ export default {
   > div {
     border-left: 1px solid #ebeae7;
     padding-left: 8px;
+  }
+}
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  input {
+    flex: 10;
+    height: 5px;
+  }
+  button {
+    flex: 2;
+    margin-left: 8px;
   }
 }
 </style>
