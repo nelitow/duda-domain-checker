@@ -13,8 +13,8 @@
   <h3>Records</h3>
   <div class="card records">
     <div>
-      <b>{{ hostname }}</b>
-      <div v-for="(record, index) in records" :key="index">
+      <b>{{ hostnameRoot }}</b>
+      <div v-for="(record, index) in recordsRoot" :key="index">
         <span
           class="green"
           v-if="
@@ -31,8 +31,8 @@
       </div>
     </div>
     <div>
-      <b>{{ hostnameRoot }}</b>
-      <div v-for="(record, index) in recordsRoot" :key="index">
+      <b>{{ hostname }}</b>
+      <div v-for="(record, index) in records" :key="index">
         <span
           class="green"
           v-if="
@@ -51,6 +51,15 @@
     <div v-if="caa" class="hr">
       <span class="red">
         ⚠️ CAA Record detected! Please remove to generate SSL certificate.
+      </span>
+    </div>
+    <div v-if="!allCorrect" class="hr">
+      <span class="red">
+        Please note: if any change has been made recently, it can take a few
+        minutes or up to 48 hours for the changes to be applied. <br />In some
+        cases results may be cached for people in different parts of the world,
+        this may mean that some people will be receiving old results until the
+        domain cache expires.
       </span>
     </div>
   </div>
@@ -72,9 +81,9 @@ export default {
   data() {
     return {
       domain: "",
-      records: {},
-      recordsRoot: {},
-      caa: {},
+      records: [],
+      recordsRoot: [],
+      caa: false,
       ns: {},
     };
   },
@@ -99,6 +108,22 @@ export default {
     },
     hostnameRoot() {
       return this.hostname.replace("www.", "");
+    },
+    allCorrect() {
+      let c = true;
+
+      this.records.concat(this.recordsRoot).forEach(function (val) {
+        if (
+          !["35.172.94.1", "100.24.208.97", "s.multiscreensite.com."].includes(
+            val.data
+          )
+        ) {
+          console.log([val.data]);
+          c = false;
+        }
+      });
+
+      return c;
     },
   },
   methods: {
@@ -147,6 +172,7 @@ export default {
         .then((r) => r.json())
         .then((r) => {
           this.caa = r.Answer;
+          this.allCorrect = false;
         });
     },
   },
