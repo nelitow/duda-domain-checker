@@ -111,18 +111,20 @@ export default {
     },
     allCorrect() {
       let c = true;
-
-      this.records.concat(this.recordsRoot).forEach(function (val) {
-        if (
-          !["35.172.94.1", "100.24.208.97", "s.multiscreensite.com."].includes(
-            val.data
-          )
-        ) {
-          console.log([val.data]);
-          c = false;
-        }
-      });
-
+      if (this.records) {
+        this.records.concat(this.recordsRoot).forEach(function (val) {
+          if (
+            ![
+              "35.172.94.1",
+              "100.24.208.97",
+              "s.multiscreensite.com.",
+            ].includes(val.data)
+          ) {
+            console.log([val.data]);
+            c = false;
+          }
+        });
+      }
       return c;
     },
   },
