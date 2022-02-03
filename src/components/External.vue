@@ -1,10 +1,10 @@
 <template>
   <div class="card">
-    <div class="frame">
-      <iframe :src="`https://www.whatsmydns.net/#A/${domain}`"></iframe>
-    </div>
-    <div class="frame">
-      <iframe :src="`https://www.whatsmydns.net/#CNAME/www.${domain}`"></iframe>
+    <div class="button">
+      <a :href="`https://www.whatsmydns.net/#A/${domain}`">Whats My DNS</a>
+      <a :href="`https://www.whatsmydns.net/#CNAME/www.${domain}`"
+        >DNS Checker</a
+      >
     </div>
   </div>
 </template>
@@ -24,28 +24,18 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.card {
-  grid-template-columns: auto auto;
-  grid-gap: 16px;
-  place-content: stretch;
-}
-@media screen and (max-width: 780px) {
-  .card {
-    grid-template-columns: 1fr;
-  }
-}
-.frame {
-  width: 100%;
-  display: inline-block;
-  border-radius: 8px;
-  overflow: hidden;
-  height: 50vh;
-}
-iframe {
-  width: 200%;
+
+.button a {
+  border-radius: 1234px;
   border: none;
-  height: 100vh;
-  transform: scale(0.5);
-  transform-origin: 0 0;
+  padding: 16px 18px;
+  color: #fff;
+  text-decoration: none;
+  background-color: #f66035;
+  font-size: 12px;
+  margin: 4px;
+  transition: all 0.2s ease;
+  height: 38px;
 }
+
 </style>

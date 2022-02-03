@@ -112,7 +112,7 @@ export default {
     allCorrect() {
       let c = true;
       if (this.records) {
-        this.records.concat(this.recordsRoot).forEach(function (val) {
+        this.records.concat(this.recordsRoot).forEach(function(val) {
           if (
             ![
               "35.172.94.1",
@@ -130,11 +130,14 @@ export default {
   },
   methods: {
     reloadFrames() {
-      var url = new URL(window.location);
+      this.domain = this.domain.trim();
+      this.domain = this.domain.toLowerCase();
+
+      const url = new URL(window.location);
       url.searchParams.has("url")
         ? url.searchParams.set("url", this.domain)
         : url.searchParams.append("url", this.domain);
-      console.log(url);
+      
       window.location.href = url;
     },
     fetchDomain() {
@@ -190,6 +193,17 @@ export default {
     border-left: 1px solid #ebeae7;
     padding-left: 8px;
   }
+}
+button {
+  border-radius: 1234px;
+  border: none;
+  padding: 6px 18px;
+  color: #fff;
+  background-color: #f66035;
+  font-size: 12px;
+  margin: 0;
+  transition: all 0.2s ease;
+  height: 38px;
 }
 .form {
   display: flex;

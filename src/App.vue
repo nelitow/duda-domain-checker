@@ -18,8 +18,7 @@ export default {
 <style lang="scss">
 .container {
   display: grid;
-  min-height: calc(100vh - 32px);
-  grid-template-rows: 32px 64px 32px auto 32px minmax(calc(50vh + 32px), max-content);
+  min-height: 600px;
   grid-gap: 16px;
   margin: 16px auto;
   max-width: 1366px;
